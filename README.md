@@ -166,3 +166,69 @@ class CuentaCorriente {
   }
 }
 ```
+# Modularizando
+# Exportando e Importando los módulos
+En el archivo index04.js
+```javascript
+import {CuentaCorriente} from './CuentaCorriente.js';
+```
+En el archivo CuentaCorriente.js
+```javascript
+export class CuentaCorriente {
+  numero;
+  #saldo;
+  agencia;
+
+  constructor() {
+    this.numero = "";
+    this.#saldo = 0;
+    this.agencia = "";
+  }
+
+  depositoEnCuenta(valor) {
+    if (valor > 0) {
+      this.#saldo += valor;
+      return this.#saldo;
+    }
+  }
+  retirarDeCuenta(valor) {
+    if (valor <= this.#saldo) {
+      this.#saldo -= valor;
+      return this.#saldo;
+    }
+  }
+  verSaldo() {
+    return this.#saldo;
+  }
+}
+```
+
+# Creación del archivo package.json
+`npm init`  
+Me solicita el `package name: cuentasbancopopular`    
+La versión: (1.0.0)  
+Una description: Gestión de Cuentas del Banco Popular  
+Me pide el punto de entrada para nuestro proyecto, es el archivo que node va a buscar para ejecutar, en este caso index.js, variable entry point: (index04.js)  
+test command: un comando para pruebas  
+git repositorio  
+keywords  
+author: Curso Alura  
+license: (ISC)  
+Me solicita confirmar y crea el archivo package.json  
+Tiene todas las definiciones del proyecto  
+Tengo que agregar a mano el "type": "module"  
+```json
+{
+  "name": "cuentasbancopopular",
+  "version": "1.0.0",
+  "description": "Gestión de Cuentas Corrientes del Banco Popular",
+  "main": "index04.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Curso Alura",
+  "license": "ISC",
+  "type": "module"
+}
+```
+
