@@ -168,6 +168,7 @@ class CuentaCorriente {
 ```
 # Modularizando
 # Exportando e Importando los módulos
+En Javascript cada archivo es considerado un módulo y podemos escoger que exportar y que no exportar de él.  
 En el archivo index04.js
 ```javascript
 import {CuentaCorriente} from './CuentaCorriente.js';
@@ -231,4 +232,113 @@ Tengo que agregar a mano el "type": "module"
   "type": "module"
 }
 ```
+# CuentaCorriente.js
+Creamos un atributo cliente para relacionar la clase con el cliente
+# Composicion de clases - relacionamos nuestras 2 clases
+```javascript
+export class Cliente {
+  nombreCliente;
+  dniCliente;
+  rutCliente;
+}
+```
+```javascript
+export class CuentaCorriente {
+  cliente;  
+  numero;
+  #saldo;
+  agencia;
 
+  constructor() {
+    // en este caso cliente no es un dato primitivo,
+    // es un tipo de dato, es un objeto (es la clase Cliente)
+    // por eso null, es un objeto de tipo de dato Cliente
+    this.cliente = null;
+    this.numero = "";
+    this.#saldo = 0;
+    this.agencia = "";
+  }
+
+  depositoEnCuenta(valor) {
+    if (valor > 0) {
+      this.#saldo += valor;
+      return this.#saldo;
+    }
+  }
+  retirarDeCuenta(valor) {
+    if (valor <= this.#saldo) {
+      this.#saldo -= valor;
+      return this.#saldo;
+    }
+  }
+  verSaldo() {
+    return this.#saldo;
+  }
+}
+
+```
+Creo la cuenta en el index04.js
+```javascript
+const cliente = new Cliente();
+cliente.nombreCliente = 'Leonardo';
+cliente.dniCliente = '13804050'
+cliente.rutCliente = '123224'
+
+const cuentaDeLeonardo = new CuentaCorriente();
+cuentaDeLeonardo.numero = '1';
+cuentaDeLeonardo.agencia = '001';
+cuentaDeLeonardo.cliente = cliente;
+console.log(cuentaDeLeonardo);
+```
+```javascript
+CuentaCorriente {
+  cliente: Cliente {
+    nombreCliente: 'Leonardo',
+    dniCliente: '13804050',
+    rutCliente: '123224'
+  },
+  numero: '1',
+  agencia: '001'
+}
+```
+# Creo metodo transferirParaCuenta()
+````javascript
+export class CuentaCorriente {
+  cliente;  
+  numero;
+  #saldo;
+  agencia;
+
+  constructor() {
+    // en este caso cliente no es un dato primitivo,
+    // es un tipo de dato, es un objeto (es la clase Cliente)
+    // por eso null, es un objeto de tipo de dato Cliente
+    this.cliente = null;
+    this.numero = "";
+    this.#saldo = 0;
+    this.agencia = "";
+  }
+
+  depositoEnCuenta(valor) {
+    if (valor > 0) {
+      this.#saldo += valor;
+      return this.#saldo;
+    }
+  }
+  retirarDeCuenta(valor) {
+    if (valor <= this.#saldo) {
+      this.#saldo -= valor;
+      return this.#saldo;
+    }
+  }
+  verSaldo() {
+    return this.#saldo;
+  }
+  transferirParaCuenta(valor, cuentaDestino) {
+    // Retiro de una cuenta
+    this.retirarDeCuenta(valor);
+    // Deposito en la otra cuenta
+    cuentaDestino.depositoEnCuenta(valor);
+  }
+}
+```

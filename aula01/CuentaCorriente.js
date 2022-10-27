@@ -1,9 +1,14 @@
 export class CuentaCorriente {
+  cliente;  
   numero;
   #saldo;
   agencia;
 
   constructor() {
+    // en este caso cliente no es un dato primitivo,
+    // es un tipo de dato, es un objeto (es la clase Cliente)
+    // por eso null, es un objeto de tipo de dato Cliente
+    this.cliente = null;
     this.numero = "";
     this.#saldo = 0;
     this.agencia = "";
@@ -23,5 +28,11 @@ export class CuentaCorriente {
   }
   verSaldo() {
     return this.#saldo;
+  }
+  transferirParaCuenta(valor, cuentaDestino) {
+    // Retiro de una cuenta
+    this.retirarDeCuenta(valor);
+    // Deposito en la otra cuenta
+    cuentaDestino.depositoEnCuenta(valor);
   }
 }
