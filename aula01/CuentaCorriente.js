@@ -1,14 +1,25 @@
+import { Cliente } from "./Cliente.js";
+
 export class CuentaCorriente {
-  cliente;  
+  #cliente;
   numero;
   #saldo;
   agencia;
+
+  set setCliente(valor) {
+    if (valor instanceof Cliente) 
+      this.#cliente = valor;
+  }
+
+  get getCliente() {
+    return this.#cliente;
+  }
 
   constructor() {
     // en este caso cliente no es un dato primitivo,
     // es un tipo de dato, es un objeto (es la clase Cliente)
     // por eso null, es un objeto de tipo de dato Cliente
-    this.cliente = null;
+    this.#cliente = null;
     this.numero = "";
     this.#saldo = 0;
     this.agencia = "";
