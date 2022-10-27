@@ -41,3 +41,128 @@ class Animal {
     }
 }
 ```
+# Definimos 2 clases con atributos y métodos
+
+```javascript
+class Cliente {
+  nombreCliente;
+  dniCliente;
+  rutCliente;
+}
+
+class CuentaCorriente {
+  numero;
+  saldo;
+  agencia;
+
+  depositoEnCuenta(valor) {
+    this.saldo += valor;
+  }
+}
+```
+# Creamos el constructor
+```javascript
+class Cliente {
+  nombreCliente;
+  dniCliente;
+  rutCliente;
+}
+
+class CuentaCorriente {
+  numero;
+  saldo;
+  agencia;
+
+  constructor() {
+    this.numero = '';
+    this.saldo = 0;
+    this.agencia = '';
+  }
+
+  depositoEnCuenta(valor) {
+    this.saldo += valor;
+  }
+  retirarDeCuenta(valor) {
+    this.saldo -= valor;
+  }
+}
+```  
+* Un método puede estar definido sin parámetros, así como puede tener uno o más parámetros. Esa es la forma de pasarle información para que podamos reutilizar su funcionalidad en diferentes escenarios.  
+* Usamos métodos para identificar los comportamientos que nuestra clase tiene. Eso facilita la comunicación dentro del equipo.  
+* El objetivo de los métodos es definir qué acciones puede ejecutar un objeto. El comportamiento es implementado dentro del método.
+# Atributos privados
+Si utilizamos **#** delante del atributo le decimos a javascript que lo trate como **privado**.  
+```javascript
+class Cliente {
+  nombreCliente;
+  dniCliente;
+  rutCliente;
+}
+
+class CuentaCorriente {
+  numero;
+  #saldo;
+  agencia;
+
+  constructor() {
+    this.numero = '';
+    this.#saldo = 0;
+    this.agencia = '';
+  }
+
+  depositoEnCuenta(valor) {
+    if(valor > 0) {
+      this.#saldo += valor;
+    }
+  }
+  retirarDeCuenta(valor) {
+    if(valor <= this.#saldo) {
+      this.#saldo -= valor;
+    }
+  }
+}
+```
+```javascript
+cuentaDeLeonardo = new CuentaCorriente();
+console.log(cuentaDeLeonardo);
+```
+No podemos ver el atributo.
+```javascript
+CuentaCorriente { numero: '', agencia: '' }
+```
+# Se implementa el return a los metodos
+```javascript
+class Cliente {
+  nombreCliente;
+  dniCliente;
+  rutCliente;
+}
+
+class CuentaCorriente {
+  numero;
+  #saldo;
+  agencia;
+
+  constructor() {
+    this.numero = "";
+    this.#saldo = 0;
+    this.agencia = "";
+  }
+
+  depositoEnCuenta(valor) {
+    if (valor > 0) {
+      this.#saldo += valor;
+      return this.#saldo;
+    }
+  }
+  retirarDeCuenta(valor) {
+    if (valor <= this.#saldo) {
+      this.#saldo -= valor
+      return this.#saldo;
+    }
+  }
+  verSaldo() {
+    return this.#saldo;
+  }
+}
+```
