@@ -302,7 +302,7 @@ CuentaCorriente {
 }
 ```
 # Creo metodo transferirParaCuenta()
-````javascript
+```javascript
 export class CuentaCorriente {
   cliente;  
   numero;
@@ -339,6 +339,23 @@ export class CuentaCorriente {
     this.retirarDeCuenta(valor);
     // Deposito en la otra cuenta
     cuentaDestino.depositoEnCuenta(valor);
+  }
+}
+```  
+
+# Constructor  
+Se ejecuta cada vez que se crea un objeto.  
+La inicialización de los atributos es la principal responsabilidad de los constructores, pero recordando que puedes ejecutar otras operaciones de igual forma.
+```javascript
+export class Cliente {
+  nombreCliente;
+  dniCliente;
+  rutCliente;
+
+  constructor(nombreCliente, dniCliente, rutCliente) {
+    this.nombreCliente = nombreCliente;
+    this.dniCliente = dniCliente;
+    this.rutCliente = rutCliente;
   }
 }
 ```

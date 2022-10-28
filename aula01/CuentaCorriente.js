@@ -5,24 +5,24 @@ export class CuentaCorriente {
   numero;
   #saldo;
   agencia;
+  static cantidadCuentas = 0;
 
-  set setCliente(valor) {
+  set cliente(valor) {
     if (valor instanceof Cliente) 
       this.#cliente = valor;
   }
 
-  get getCliente() {
+  get cliente() {
     return this.#cliente;
   }
 
-  constructor() {
-    // en este caso cliente no es un dato primitivo,
-    // es un tipo de dato, es un objeto (es la clase Cliente)
-    // por eso null, es un objeto de tipo de dato Cliente
-    this.#cliente = null;
-    this.numero = "";
+  constructor(cliente, numero, agencia) {
+    this.cliente = cliente;
+    this.numero = numero;
+    this.agencia = agencia;
     this.#saldo = 0;
-    this.agencia = "";
+    CuentaCorriente.cantidadCuentas++;
+    
   }
 
   depositoEnCuenta(valor) {
